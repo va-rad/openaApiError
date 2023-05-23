@@ -114,7 +114,8 @@ public class MainVerticle extends AbstractVerticle {
       .addHandler(new RandomHandler(vertx, Currency.getInstance("GBP")))
       .addHandler(new RandomHandler(vertx, Currency.getInstance("RON")))
       .addHandler(new RequestLoggerHandler())
-      .addHandler(RoutingContext::end);
+      .addHandler(RoutingContext::end)
+      .addFailureHandler(new FailureResponseHandler(vertx));
 
     return builder;
   }

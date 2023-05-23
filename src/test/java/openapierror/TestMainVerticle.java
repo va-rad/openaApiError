@@ -39,12 +39,7 @@ public class TestMainVerticle {
       .deployVerticle(new RandomGeneratorServiceVerticle())
       .compose(s -> vertx.deployVerticle(new MainVerticle()))
       .onComplete(testContext.succeedingThenComplete());
-
-
-
   }
-
-
 
   @Test
   void requestSent(Vertx vertx, VertxTestContext testContext) {
@@ -61,8 +56,6 @@ public class TestMainVerticle {
             new JsonObject().put("id", "3"),
             ResponsePredicate.SC_OK))
       .onComplete(testContext.succeedingThenComplete());
-
-
   }
 
 
