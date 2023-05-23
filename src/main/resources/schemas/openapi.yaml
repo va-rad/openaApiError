@@ -1,0 +1,70 @@
+openapi: 3.0.3
+info:
+  title: Test API
+  description: |
+    Test API.
+  version: ${project.version}
+  license:
+    name: Test
+
+servers:
+  - url: https://localhost/api/v1
+    description: Localhost server
+
+tags:
+  - name: webhook
+    x-displayName: Webhook Link
+    description: Manage the webhook.
+
+
+paths:
+  /webhook:
+    post:
+      tags:
+        - webhook
+      summary: Endpoint for webhook responses
+      operationId: webhook-response
+      requestBody:
+        $ref: '#/components/requestBodies/RequestBody'
+      responses:
+        '200':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request due to invalid message format.
+        '401':
+          description: Not authorized.
+        '403':
+          description: Access denied.
+        '4XX':
+          description: Bad request.
+        '5XX':
+          description: Unexpected error.
+
+components:
+
+  requestBodies:
+    RequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PRequest'
+
+  schemas:
+    PRequest:
+      description: A (minimal) representation of a request.
+      properties:
+        header:
+          $ref: '#/components/schemas/Source'
+
+    Source:
+      description: Source
+      type: object
+      properties:
+        id:
+          description: The id of the source.
+          type: string
+          example: 006
