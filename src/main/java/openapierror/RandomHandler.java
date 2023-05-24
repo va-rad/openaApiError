@@ -29,11 +29,16 @@ public class RandomHandler implements Handler<RoutingContext> {
     service.generate()
       .onSuccess(randomInt -> {
         log.info("Generate random number for currency: {} {}", randomInt, currency.getCurrencyCode());
-//      if (randomInt < 5) {
-//        ctx.fail(500);
-//      } else {
-//        ctx.next();
-//      }
+        try {
+          Thread.sleep(200L);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      if (randomInt < 5) {
+        ctx.fail(500);
+      } else {
+        ctx.next();
+      }
         ctx.next();
     });
 
